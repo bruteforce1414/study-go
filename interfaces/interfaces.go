@@ -39,7 +39,6 @@ func (m *manager) AddDir(path string) {
 		}
 	for _, file := range files {
 		m.plugins=append(m.plugins,path+file.Name())
-
 	}
 }
 
@@ -54,6 +53,5 @@ func (m *manager) AddFile(path string) {
 }
 
 func (m *manager) List() []string {
-
 	return m.plugins
 }
