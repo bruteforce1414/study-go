@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
+	"path/filepath"
 	"sync"
 )
 
@@ -11,9 +11,9 @@ var once sync.Once
 
 type PluginManager interface {
 	// method adds all files from given directory to list of plugins
-	AddDir(path string)
+	AddDir(path string) error
 	// method adds path to list of plugins, must check file exists or not
-	AddFile(path string)
+	AddFile(path string) error
 	// returns list of all plugins
 	List() []string
 }
@@ -32,24 +32,26 @@ func GetPluginManager() PluginManager {
 	return instance
 }
 
-func (m *manager) AddDir(path string) {
+func (m *manager) AddDir(path string) error {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
-		fmt.Println(err)
+		return err
 		}
 	for _, file := range files {
-		m.plugins=append(m.plugins,path+file.Name())
+		m.plugins=append(m.plugins,filepath.Join(path,file.Name()))
 	}
+	return nil
 }
 
 
-func (m *manager) AddFile(path string) {
+func (m *manager) AddFile(path string) error {
 	_, err := ioutil.ReadFile(path)
 	if err != nil {
-		fmt.Println(err)
+		return err
 		}else{
-		m.plugins=append(m.plugins,path)
+		m.plugins=append(m.plugins,filepath.Join(path))
 	}
+	return nil
 }
 
 func (m *manager) List() []string {

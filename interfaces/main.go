@@ -15,11 +15,18 @@ func main() {
 	// тут нужно получить данные из флагов, если флаги указаны
 
 	if dir!=nil{
-		m.AddDir(*dir)
+		errDir:=m.AddDir(*dir)
+		if errDir!=nil{
+			fmt.Println("Возникла ошибка:",errDir)
+		}
 	}
 
 	if plugin!=nil{
-		m.AddFile(*plugin)
+		errFile:=m.AddFile(*plugin)
+		if errFile!=nil{
+			fmt.Println("Возникла ошибка:", errFile)
+		}
+
 	}
 
 	if len(m.List())==0 {
