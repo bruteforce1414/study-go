@@ -18,18 +18,21 @@ func main() {
 
 	if dir!=nil{
 		m.AddDir(*dir)
-	}else {
-		fmt.Println("Флаг --dir не установлен")
 	}
 
 
 	if plugin!=nil{
 		m.AddFile(*plugin)
-	}else {
-		fmt.Println("Флаг --plugin не установлен")
 	}
 
-     m.List()
+	if len(m.List())==0 {
+		fmt.Println("\nПлагинов нет!!!")
+	}else {
+		fmt.Println("\nСписок загруженных плагинов:\n")
+		for _, value := range m.List() {
+			fmt.Println(value)}
+	}
+
 
 	// выводим список всех плагинов, если список пуст, то выводим "плагинов нет"
 }

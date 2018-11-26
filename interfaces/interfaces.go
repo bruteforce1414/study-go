@@ -54,12 +54,6 @@ func (m *manager) AddFile(path string) {
 }
 
 func (m *manager) List() []string {
-	if len(m.plugins)==0 {
-		fmt.Println("\nПлагинов нет!!!")
-	}else {
-		fmt.Println("\nСписок загруженных плагинов:\n")
-		for _, value := range m.plugins {
-			fmt.Println(value)}
-		}
+
 	return m.plugins
 }
